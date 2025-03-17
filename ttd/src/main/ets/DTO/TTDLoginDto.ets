@@ -9,6 +9,7 @@ interface ITTDLoginDto {
   ret_msg: string;
   ret_code: string;
   goodsInfo: string;
+  merchantOPInfo:MerchantOp;
 }
 
 
@@ -34,6 +35,7 @@ export class TTDLoginDto implements ITTDLoginDto {
   call: number = 0;
   auth: string = "";
   lineUp: number = 0;
+  merchantOPInfo: MerchantOp = new MerchantOp();
   ret_msg: string = "";
   ret_code: string = "";
   goodsInfo: string = "";
@@ -87,5 +89,13 @@ export class GoodsDetail implements IGoodsDetail {
   type: number = 0;
   uuid: string = "";
 
+  constructor(){}
+}
+
+interface IMerchantOp{
+  mid:string
+}
+export class MerchantOp implements IMerchantOp{
+  mid: string = ""
   constructor(){}
 }

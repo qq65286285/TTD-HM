@@ -3,7 +3,7 @@ import { http } from '@kit.NetworkKit'
 // import { BASE_URL } from '../constants/url_var'
 import { promptAction, router } from '@kit.ArkUI'
 import { baseUrl } from '../constants/CommonConstant'
-import { LoginResponse } from '../../response/LoginResponse'
+import { LoginResponse } from '../../DTO/LoginResponse'
 
 // import { ResponsesData } from './request2'
 //传输参数token
@@ -87,16 +87,17 @@ async function requestHttp<T>(url: string = '', method: http.RequestMethod , dat
       // const resultJSON = JSON.parse(resultStr);
       // const loginUser :LoginResponse = new LoginResponse();
       // const jsonStr =  '{"ret_code":"BeJson","auth":"bejson.com","call":88,"ret_msg":"true"}';
-      const result:LoginResponse  = JSON.parse(resultStr)  as LoginResponse
-      const resultDto = new LoginResponse(result.call,result.auth,result.ret_code,result.ret_msg);
-      //再判断返回的状态码进行处理，不是200都是失败
-      if (resultDto.ret_code === "0000") {
-        return result as T
-      } else {
-        // promptAction.showToast({ message: '服务器异常！' })
+      // const result:LoginResponse  = JSON.parse(resultStr)  as LoginResponse
+      // const resultDto = new LoginResponse(result.call,result.auth,result.ret_code,result.ret_msg);
+      // 再判断返回的状态码进行处理，不是200都是失败
+      // if (resultDto.ret_code === "0000") {
+        return resultStr as T
+      // } else {
+        promptAction.showToast({ message: '服务器异常！' })
 
-        return Promise.reject(new Error(result.ret_msg))
-      }
+        // return Promise.reject(new Error(result.ret_msg))
+      // }
+      return resultStr as T;
     }
   } catch (error) {
     // promptAction.showToast({ message: error })

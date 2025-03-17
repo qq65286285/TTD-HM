@@ -1,9 +1,9 @@
 import { Request } from '../../common/utils/HttpUtils'
-import { LoginRequest } from '../../response/LoginRequest';
-import { LoginResponse } from '../../response/LoginResponse';
+import { LoginRequest } from '../../DTO/LoginRequest';
+import { LoginResponse } from '../../DTO/LoginResponse';
 import { promptAction, router } from '@kit.ArkUI';
 import { loginApi } from '../../common/constants/CommonConstant';
-import { TTDLoginDto } from '../../response/TTDLoginDto';
+import { TTDLoginDto } from '../../DTO/TTDLoginDto';
 
 @Entry
 @Component
@@ -14,11 +14,13 @@ struct Login {
 
   // 按钮点击事件处理
   async   login(pwd:string ,username:string) : Promise<TTDLoginDto>{
-      const response = await Request.post<TTDLoginDto>(
+      const response = await Request.post<string>(
         loginApi,
         new LoginRequest(pwd,username)
       )
-      return response;
+    const result:TTDLoginDto  = JSON.parse(response)  as TTDLoginDto
+    // const resultDto = new LoginResponse(result.call,result.auth,result.ret_code,result.ret_msg);
+    return result
 }
 
 
@@ -69,6 +71,7 @@ struct Login {
           if (resp.ret_code  === "0000") {
             // 存储token并跳转主页
             AppStorage.setAndRef('loginUser', resp)
+
             this.getUIContext().getPromptAction().showToast({
               message: '登录成功'
             })

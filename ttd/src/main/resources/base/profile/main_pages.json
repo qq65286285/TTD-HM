@@ -2,6 +2,7 @@
   "src": [
     "pages/Index",
     "pages/main/login",
-    "pages/main/FunctionList"
+    "pages/main/FunctionList",
+    "pages/main/TableList"
   ]
 }

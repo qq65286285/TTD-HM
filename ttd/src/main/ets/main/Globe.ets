@@ -1,5 +1,5 @@
 // 1.登录成功后存储数据
-import { LoginResponse } from '../response/LoginResponse';
+import { LoginResponse } from '../DTO/LoginResponse';
 
 // 存储对象需序列化
 AppStorage.SetOrCreate('userInfo', JSON.stringify(LoginResponse));
